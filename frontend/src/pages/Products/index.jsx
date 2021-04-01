@@ -5,7 +5,6 @@ import EllipsisContent from "../../components/EllipsisContent";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  console.log(products);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/products.php`)
@@ -20,8 +19,8 @@ const Products = () => {
       <div className="product-wrapper-inner row row-cols-1 row-cols-md-3 g-4">
         {products &&
           products.map((computer, index) => (
-            <div className="col" key={index}>
-              <div className="card computer-item">
+            <div className="col mb-4" key={index}>
+              <div className="card h-100 computer-item">
                 <img
                   src={computer.image}
                   className="card-img-top"

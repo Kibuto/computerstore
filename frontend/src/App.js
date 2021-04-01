@@ -1,12 +1,13 @@
 // libs
 import React, { Suspense } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // hooks
 import { ProvideAuth } from "./hooks/useAuth";
 // components
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import PrivateRoute from "./components/PrivateRoute";
+import Header from "./components/Header";
 // routers
 import mainRoutes from "./routers";
 // others
@@ -29,30 +30,7 @@ const App = () => {
           goto="/login"
           component={() => (
             <div>
-              <div className="container">
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                  <Link to="/" className="navbar-brand">
-                    Computer Store
-                  </Link>
-                  <div
-                    className="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                  >
-                    <ul className="navbar-nav mr-auto">
-                      <li className="nav-item">
-                        <Link to="/" className="nav-link">
-                          Home
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link to="/products" className="nav-link">
-                          Products
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </nav>
-              </div>
+              <Header />
               <Suspense fallback={<div>...Loading</div>}>
                 <Switch>{routeComponents}</Switch>
               </Suspense>

@@ -14,7 +14,6 @@ export const useProvideAuth = () => {
       })
       .then((res) => {
         const { user } = res.data || {};
-        console.log(res.data.user[0]);
         setToken(user[0].uId);
         setUser({
           ...user[0],
