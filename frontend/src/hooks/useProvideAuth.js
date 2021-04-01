@@ -25,7 +25,7 @@ export const useProvideAuth = () => {
 
   const signup = ({ email, username, password, handleRedirectRouter }) => {
     axios
-      .post(`${process.env.REACT_APP_API_URL}/user.php`, {
+      .post(`${process.env.REACT_APP_API_URL_LARAVEL}/register`, {
         email,
         username,
         password,
