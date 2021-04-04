@@ -44,9 +44,9 @@ const Login = () => {
         <div className="form-group">
           <input type="submit" value="Login" className="btn btn-primary" />
         </div>
-        <div class="card-text">
+        <div className="card-text">
           Don't have an account?{" "}
-          <Link to="/registration" class="text-primary">
+          <Link to="/registration" className="text-primary">
             Sign up
           </Link>
         </div>

@@ -70,9 +70,9 @@ const Registration = () => {
         <div className="form-group">
           <input type="submit" value="Register" className="btn btn-primary" />
         </div>
-        <div class="card-text">
+        <div className="card-text">
           Already have an account?{" "}
-          <Link to="/login" class="text-primary">
+          <Link to="/login" className="text-primary">
             Sign in
           </Link>
         </div>

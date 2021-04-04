@@ -8,15 +8,15 @@ export const useProvideAuth = () => {
 
   const signin = ({ username, password, handleRedirectHome }) => {
     axios
-      .post(`${process.env.REACT_APP_API_URL}/login.php`, {
+      .post(`${process.env.REACT_APP_API_URL_LARAVEL}/login`, {
         username,
         password,
       })
       .then((res) => {
-        const { user } = res.data || {};
-        setToken(user[0].uId);
+        const { id } = res.data;
+        setToken(id);
         setUser({
-          ...user[0],
+          ...res.data,
         });
         handleRedirectHome();
       })

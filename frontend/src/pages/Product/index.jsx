@@ -1,26 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "../../hooks";
+import { useRouter, useCart } from "../../hooks";
 
 const Product = () => {
   const [product, setProduct] = useState({});
   const router = useRouter();
+  const { addToCart } = useCart();
   const { id } = router.query || {};
-
-  const orderList = [
-    { id: 1, name: "ASUS", description: "abc" },
-    { id: 2, name: "ACER", description: "abc" },
-  ];
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/getProductById.php?id=${id}`)
+      .get(`${process.env.REACT_APP_API_URL_LARAVEL}/getProductById/${id}`)
       .then((res) => setProduct(res.data.product));
   }, [id]);
-
-  const saveOrder = () => {
-    axios.post(`${process.env.REACT_APP_API_URL}/saveOrder.php`, orderList);
-  };
 
   return (
     <div className="container mt-3">
@@ -28,7 +20,7 @@ const Product = () => {
         <div className="row g-0">
           <div className="col-md-4">
             <img
-              src={product.image}
+              // src={`http://localhost:8000/${product.image}`}
               alt="images"
               style={{ width: "100%", height: "100%" }}
             />
@@ -40,8 +32,11 @@ const Product = () => {
               <p className="card-text">
                 <small className="text-muted">Last updated 3 mins ago</small>
               </p>
-              <button onClick={saveOrder} className="btn btn-primary">
-                Save Order
+              <button
+                onClick={() => addToCart(product)}
+                className="btn btn-primary"
+              >
+                Add to cart
               </button>
             </div>
           </div>

@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +28,15 @@ Route::group(['middleware' => ['auth:api']], function () {
 });
 
 Route::post("register", [UserController::class, "register"]);
+Route::post("login", [UserController::class, "login"]);
+
+Route::post("addProduct", [ProductController::class, "addProduct"]);
+Route::get("productList", [ProductController::class, "productList"]);
+Route::delete("deleteProduct/{id}", [ProductController::class, "deleteProduct"]);
+Route::get("getProductById/{id}", [ProductController::class, "getProductById"]);
+Route::get("getProductByCategoryId/{id}", [ProductController::class, "getProductByCategoryId"]);
+
+Route::get("categoryList", [CategoryController::class, "categoryList"]);
+
+Route::post("checkout", [OrderController::class, "checkout"]);
+Route::get("getOrder/{id}", [OrderController::class, "getOrder"]);

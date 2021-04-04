@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // hooks
 import { ProvideAuth } from "./hooks/useAuth";
+import { ProvideCart } from "./hooks/useCart";
 // components
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
@@ -26,17 +27,19 @@ const App = () => {
   return (
     <ProvideAuth>
       <Router>
-        <PrivateRoute
-          goto="/login"
-          component={() => (
-            <div>
-              <Header />
-              <Suspense fallback={<div>...Loading</div>}>
-                <Switch>{routeComponents}</Switch>
-              </Suspense>
-            </div>
-          )}
-        />
+        <ProvideCart>
+          <PrivateRoute
+            goto="/login"
+            component={() => (
+              <div>
+                <Header />
+                <Suspense fallback={<div>...Loading</div>}>
+                  <Switch>{routeComponents}</Switch>
+                </Suspense>
+              </div>
+            )}
+          />
+        </ProvideCart>
         <Route path="/login">
           <Login />
         </Route>

@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EllipsisContent from "../../components/EllipsisContent";
+import { useRouter } from "../../hooks";
 
-const Products = () => {
+const Category = () => {
   const [products, setProducts] = useState([]);
+  const router = useRouter();
+  const { id } = router.query || {};
+
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL_LARAVEL}/productList`)
-      .then((res) => {
-        setProducts(res.data.products);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+      .get(
+        `${process.env.REACT_APP_API_URL_LARAVEL}/getProductByCategoryId/${id}`
+      )
+      .then((res) => setProducts(res.data.products));
+  }, [id]);
 
   return (
-    <div className="products-wrapper container mt-4">
+    <div className="container category-wrapper mt-3">
       <div className="product-wrapper-inner row row-cols-1 row-cols-md-3 g-4">
         {products &&
           products.map((computer, index) => (
@@ -28,7 +31,7 @@ const Products = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title">{computer.name}</h5>
-                  <EllipsisContent classname="card-text">
+                  <EllipsisContent className="card-text">
                     {computer.description}
                   </EllipsisContent>
                   <Link
@@ -46,4 +49,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Category;
