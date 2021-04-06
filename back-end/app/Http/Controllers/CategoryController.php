@@ -10,6 +10,6 @@ class CategoryController extends Controller
     //
     function categoryList()
     {
-        return ["categories" => Category::all()];
+        return ["success" => true, "categories" => Category::all()];
     }
 }

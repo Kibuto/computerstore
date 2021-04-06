@@ -29,6 +29,9 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 Route::post("register", [UserController::class, "register"]);
 Route::post("login", [UserController::class, "login"]);
+Route::get("getUserById/{id}", [UserController::class, "getUserById"]);
+Route::get("getUserList", [UserController::class, "getUserList"]);
+Route::delete("deleteUserById/{id}", [UserController::class, "deleteUserById"]);
 
 Route::post("addProduct", [ProductController::class, "addProduct"]);
 Route::get("productList", [ProductController::class, "productList"]);
@@ -40,3 +43,5 @@ Route::get("categoryList", [CategoryController::class, "categoryList"]);
 
 Route::post("checkout", [OrderController::class, "checkout"]);
 Route::get("getOrder/{id}", [OrderController::class, "getOrder"]);
+Route::get("getOrderList", [OrderController::class, "getOrderList"]);
+Route::delete("deleteOrderById/{id}", [OrderController::class, "deleteOrderById"]);

@@ -10,7 +10,7 @@ import Registration from "./pages/Registration";
 import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
 // routers
-import mainRoutes from "./routers";
+import { mainRoutes, adminRoutes } from "./routers";
 // others
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -24,12 +24,21 @@ const App = () => {
     />
   ));
 
+  const adminRouteComponents = adminRoutes.map((route) => (
+    <Route
+      key={route.path || "/not-found"}
+      path={route.path}
+      exact={route.exact || false}
+      component={route.component}
+    />
+  ));
+
   return (
     <ProvideAuth>
       <Router>
         <ProvideCart>
           <PrivateRoute
-            goto="/login"
+            roles={["user", "admin"]}
             component={() => (
               <div>
                 <Header />
@@ -37,6 +46,14 @@ const App = () => {
                   <Switch>{routeComponents}</Switch>
                 </Suspense>
               </div>
+            )}
+          />
+          <PrivateRoute
+            roles={["admin"]}
+            component={() => (
+              <Suspense fallback={<div>...Loading</div>}>
+                <Switch>{adminRouteComponents}</Switch>
+              </Suspense>
             )}
           />
         </ProvideCart>

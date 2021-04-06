@@ -9,7 +9,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  if (token) return <Redirect to="/" />;
+  // if (token) return <Redirect to="/" />;
 
   const handleSignIn = (e) => {
     e.preventDefault();

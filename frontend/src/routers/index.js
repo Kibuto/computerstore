@@ -1,4 +1,16 @@
-import { Home, Products, Product, Cart, Confirm, Category } from "./lazyRoutes";
+import {
+  Home,
+  Products,
+  Product,
+  Cart,
+  Confirm,
+  Category,
+  OrderHistory,
+  ManagementProducts,
+  ManagementUser,
+  ManagementOrder,
+  CreateProduct,
+} from "./lazyRoutes";
 import NotFound from "../pages/NotFound";
 
 const mainRoutes = [
@@ -34,9 +46,37 @@ const mainRoutes = [
     component: Category,
   },
   {
+    path: "/order-history",
+    pageName: "OrderHistory",
+    component: OrderHistory,
+  },
+  {
     pageName: "NotFound",
     component: NotFound,
   },
 ];
 
-export default mainRoutes;
+const adminRoutes = [
+  {
+    path: "/management-products",
+    pageName: "ManagementProducts",
+    component: ManagementProducts,
+  },
+  {
+    path: "/management-user",
+    pageName: "ManagementUser",
+    component: ManagementUser,
+  },
+  {
+    path: "/management-order",
+    pageName: "ManagementOrder",
+    component: ManagementOrder,
+  },
+  {
+    path: "/create-product",
+    pageName: "CreateProduct",
+    component: CreateProduct,
+  },
+];
+
+export { mainRoutes, adminRoutes };

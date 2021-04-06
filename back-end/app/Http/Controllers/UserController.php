@@ -29,4 +29,24 @@ class UserController extends Controller
         }
         return $user;
     }
+
+    function getUserById($id)
+    {
+        return User::where("id", $id)->first();
+    }
+
+    function getUserList()
+    {
+        return ["success" => true, "userList" => User::all()];
+    }
+
+    function deleteUserById($id)
+    {
+        $result = User::where("id", $id)->delete();
+        if ($result) {
+            return ["success" => true, "message" => "User has been deleted"];
+        } else {
+            return ["success" => false, "message" => "Something went wrong when delete user"];
+        }
+    }
 }

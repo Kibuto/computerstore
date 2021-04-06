@@ -4,16 +4,21 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCart } from "../../hooks";
 import { useAuth } from "../../hooks/useAuth";
+import { adminRoutes } from "../../routers";
 
 const Header = () => {
   const [category, setCategory] = useState([]);
   const { cart } = useCart();
-  const { signout, user } = useAuth();
+  const { signout, user, token } = useAuth();
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL_LARAVEL}/categoryList`)
-      .then((res) => setCategory(res.data.categories));
+      .then((res) => {
+        if (res.data.success) {
+          setCategory(res.data.categories);
+        }
+      });
   }, []);
 
   return (
@@ -23,6 +28,13 @@ const Header = () => {
         <Nav.Link>
           <Link to="/products">Products</Link>
         </Nav.Link>
+
+        {token.role === "admin" &&
+          adminRoutes.map((route, index) => (
+            <Nav.Link key={index}>
+              <Link to={route.path}>{route.pageName.replace("nt", "nt ")}</Link>
+            </Nav.Link>
+          ))}
         {category && (
           <NavDropdown title="Category">
             {category.map((item, index) => (

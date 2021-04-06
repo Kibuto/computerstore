@@ -13,12 +13,11 @@ class ProductController extends Controller
         $product = new Product;
         $product->name = $req->input("name");
         $product->description = $req->input("description");
-        $product->quantity = $req->input("quantity");
-        $product->cost = $req->input("cost");
+        $product->price = $req->input("price");
         $product->image = $req->file("image")->store("products");
-        $product->categoryId = $req->input("categoryId");
+        $product->category_id = $req->input("category");
         $product->save();
-        return $product;
+        return ["success" => true, "message" => "Create product successfully"];
     }
 
     function productList()
@@ -30,9 +29,9 @@ class ProductController extends Controller
     {
         $result = Product::where("id", $id)->delete();
         if ($result) {
-            return ["result" => "Product has been deleted"];
+            return ["success" => true, "message" => "Product has been deleted"];
         } else {
-            return ["error" => "Something went wrong when delete product"];
+            return ["success" => false, "message" => "Something went wrong when delete product"];
         }
     }
 

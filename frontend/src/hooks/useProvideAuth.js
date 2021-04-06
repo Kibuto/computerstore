@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useUpdateEffect } from "./useUpdateEffect";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useProvideAuth = () => {
   const [user, setUser] = useState(false);
-  const [token, setToken] = useLocalStorage("token", "");
+  const [token, setToken] = useLocalStorage("token", false);
 
   const signin = ({ username, password, handleRedirectHome }) => {
     axios
@@ -14,7 +15,7 @@ export const useProvideAuth = () => {
       })
       .then((res) => {
         const { id } = res.data;
-        setToken(id);
+        setToken({ ...res.data });
         setUser({
           ...res.data,
         });

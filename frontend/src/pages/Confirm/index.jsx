@@ -6,7 +6,7 @@ import { useAuth, useCart, useRouter } from "../../hooks";
 
 const Confirm = () => {
   const { cart } = useCart();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const [name, setName] = useState(user.name || "");
   const [address, setAddress] = useState(user.address || "");
   const [shipDate, setShipDate] = useState("");
@@ -19,7 +19,7 @@ const Confirm = () => {
         cartItems: cart.cartItems,
         sum: cart.sum,
         userInfo: {
-          id: user.id,
+          id: token.id,
           name,
           address,
           shipDate: moment(shipDate, "YYYY-MM-DD").format(
@@ -27,7 +27,11 @@ const Confirm = () => {
           ),
         },
       })
-      .then((res) => console.log(res));
+      .then((res) => {
+        if (res.data.success) {
+          router.push("/products");
+        }
+      });
   };
 
   return (

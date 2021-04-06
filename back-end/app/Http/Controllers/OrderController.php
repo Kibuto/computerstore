@@ -16,7 +16,6 @@ class OrderController extends Controller
         $userInfo = $req->input("userInfo");
         $cartItems = $req->input("cartItems");
 
-        // return $req->input();
         $created_order = Order::create([
             'shipAddress' => $userInfo['address'],
             'shipDate' => $userInfo['shipDate'],
@@ -51,7 +50,23 @@ class OrderController extends Controller
     function getOrder($userId)
     {
         $result = Order::query()->with('products')->where('user_id', $userId)->latest()->get();
-        return response()->json(['success' => true, 'data' => $result], 200);
+        return response()->json(['success' => true, 'orderInfo' => $result], 200);
+    }
+
+    function getOrderList()
+    {
+        $result = Order::query()->with('products')->latest()->get();
+        return response()->json(['success' => true, 'orderList' => $result], 200);
+    }
+
+    function deleteOrderById($id)
+    {
+        $result = Order::where("id", $id)->delete();
+        if ($result) {
+            return ["success" => true, "message" => "Order has been deleted"];
+        } else {
+            return ["success" => false, "message" => "Something went wrong when delete order"];
+        }
     }
 
     // function getDashboard($userId)
