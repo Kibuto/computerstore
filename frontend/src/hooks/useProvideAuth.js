@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useUpdateEffect } from "./useUpdateEffect";
+import { useState } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useProvideAuth = () => {
@@ -14,7 +13,6 @@ export const useProvideAuth = () => {
         password,
       })
       .then((res) => {
-        const { id } = res.data;
         setToken({ ...res.data });
         setUser({
           ...res.data,

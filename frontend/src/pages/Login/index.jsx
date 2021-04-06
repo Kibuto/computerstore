@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { useAuth, useRouter } from "../../hooks";
 
 const Login = () => {
   const router = useRouter();
-  const { token, signin } = useAuth();
+  const { signin } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  // if (token) return <Redirect to="/" />;
 
   const handleSignIn = (e) => {
     e.preventDefault();
