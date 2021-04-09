@@ -25,3 +25,4 @@ export const ManagementOrder = lazy(() =>
 export const OrderHistory = lazy(() =>
   delayLazy()(import("../pages/OrderHistory"))
 );
+export const Dashboard = lazy(() => delayLazy()(import("../pages/Dashboard")));

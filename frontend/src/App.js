@@ -57,12 +57,8 @@ const App = () => {
             )}
           />
         </ProvideCart>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/registration">
-          <Registration />
-        </Route>
+        <Route path="/login" component={Login} />
+        <Route path="/registration" component={Registration} />
       </Router>
     </ProvideAuth>
   );

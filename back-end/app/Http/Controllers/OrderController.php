@@ -69,10 +69,9 @@ class OrderController extends Controller
         }
     }
 
-    // function getDashboard($userId)
-    // {
-    //     $result = Order::query()->with('products')->where('user_id', $userId)
-    //         ->whereMonth('created_at', '=', 4)->latest()->get();
-    //     return response()->json(['success' => true, 'data' => $result], 200);
-    // }
+    function getDashboard()
+    {
+        $result = Order::query()->with('products')->whereYear('created_at', '=', 2021)->latest()->get();
+        return response()->json(['success' => true, 'data' => $result], 200);
+    }
 }

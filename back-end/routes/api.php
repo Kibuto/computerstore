@@ -45,3 +45,4 @@ Route::post("checkout", [OrderController::class, "checkout"]);
 Route::get("getOrder/{id}", [OrderController::class, "getOrder"]);
 Route::get("getOrderList", [OrderController::class, "getOrderList"]);
 Route::delete("deleteOrderById/{id}", [OrderController::class, "deleteOrderById"]);
+Route::get("getDashboard", [OrderController::class, "getDashboard"]);

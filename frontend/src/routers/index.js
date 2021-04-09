@@ -10,8 +10,8 @@ import {
   ManagementUser,
   ManagementOrder,
   CreateProduct,
+  Dashboard,
 } from "./lazyRoutes";
-import NotFound from "../pages/NotFound";
 
 const mainRoutes = [
   {
@@ -50,10 +50,6 @@ const mainRoutes = [
     pageName: "OrderHistory",
     component: OrderHistory,
   },
-  {
-    pageName: "NotFound",
-    component: NotFound,
-  },
 ];
 
 const adminRoutes = [
@@ -76,6 +72,11 @@ const adminRoutes = [
     path: "/create-product",
     pageName: "CreateProduct",
     component: CreateProduct,
+  },
+  {
+    path: "/dash-board",
+    pageName: "Dashboard",
+    component: Dashboard,
   },
 ];
 
