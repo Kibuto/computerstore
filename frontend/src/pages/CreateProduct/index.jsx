@@ -5,7 +5,7 @@ import { useRouter } from "../../hooks";
 
 const CreateProduct = () => {
   const router = useRouter();
-  const { state } = router.location || {};
+  const { state = {} } = router.location || {};
   const [categoryList, setCategoryList] = useState();
   const [showMessage, setShowMessage] = useState(false);
   const [name, setName] = useState(state.name || "");

@@ -10,11 +10,20 @@ import Registration from "./pages/Registration";
 import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
 // routers
-import { mainRoutes, adminRoutes } from "./routers";
+import { mainRoutes, adminRoutes, userRoutes } from "./routers";
 // others
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
+  const userComponents = userRoutes.map((route) => (
+    <Route
+      key={route.path || "/not-found"}
+      path={route.path}
+      exact={route.exact || false}
+      component={route.component}
+    />
+  ));
+
   const routeComponents = mainRoutes.map((route) => (
     <Route
       key={route.path || "/not-found"}
@@ -37,25 +46,18 @@ const App = () => {
     <ProvideAuth>
       <Router>
         <ProvideCart>
-          <PrivateRoute
-            roles={["user", "admin"]}
-            component={() => (
-              <div>
-                <Header />
-                <Suspense fallback={<div>...Loading</div>}>
-                  <Switch>{routeComponents}</Switch>
-                </Suspense>
-              </div>
-            )}
-          />
-          <PrivateRoute
-            roles={["admin"]}
-            component={() => (
-              <Suspense fallback={<div>...Loading</div>}>
-                <Switch>{adminRouteComponents}</Switch>
-              </Suspense>
-            )}
-          />
+          <Suspense fallback={<div>...Loading</div>}>
+            <Header />
+            <Switch>{routeComponents}</Switch>
+            <PrivateRoute
+              roles={["user", "admin"]}
+              component={() => <Switch>{userComponents}</Switch>}
+            />
+            <PrivateRoute
+              roles={["admin"]}
+              component={() => <Switch>{adminRouteComponents}</Switch>}
+            />
+          </Suspense>
         </ProvideCart>
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />

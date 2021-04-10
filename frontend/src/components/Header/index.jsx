@@ -9,7 +9,7 @@ import { adminRoutes } from "../../routers";
 const Header = () => {
   const [category, setCategory] = useState([]);
   const { cart } = useCart();
-  const { signout, user, token } = useAuth();
+  const { signout, token } = useAuth();
 
   useEffect(() => {
     axios
@@ -28,7 +28,6 @@ const Header = () => {
         <Nav.Link>
           <Link to="/products">Products</Link>
         </Nav.Link>
-
         {token.role === "admin" &&
           adminRoutes.map((route, index) => (
             <Nav.Link key={index}>
@@ -49,15 +48,17 @@ const Header = () => {
         <Nav.Link>
           <Link to="/cart">{cart.count}</Link>
         </Nav.Link>
-        <NavDropdown title={user.name ? user.name : "Hi There"}>
-          <NavDropdown.Item>
-            <Link to="/profile">Profile</Link>
-          </NavDropdown.Item>
-          <NavDropdown.Item>
-            <Link to="/order-history">Order History</Link>
-          </NavDropdown.Item>
-          <NavDropdown.Item onClick={signout}>Log out</NavDropdown.Item>
-        </NavDropdown>
+        {token && (
+          <NavDropdown title={token.name || "Hi There"}>
+            <NavDropdown.Item>
+              <Link to="/profile">Profile</Link>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
+              <Link to="/order-history">Order</Link>
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={signout}>Log out</NavDropdown.Item>
+          </NavDropdown>
+        )}
       </Nav>
     </Navbar>
   );

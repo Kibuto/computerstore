@@ -36,14 +36,17 @@ const mainRoutes = [
     component: Cart,
   },
   {
-    path: "/confirm",
-    pageName: "Confirm",
-    component: Confirm,
-  },
-  {
     path: "/category/:id",
     pageName: "Category",
     component: Category,
+  },
+];
+
+const userRoutes = [
+  {
+    path: "/confirm",
+    pageName: "Confirm",
+    component: Confirm,
   },
   {
     path: "/order-history",
@@ -80,4 +83,4 @@ const adminRoutes = [
   },
 ];
 
-export { mainRoutes, adminRoutes };
+export { mainRoutes, adminRoutes, userRoutes };

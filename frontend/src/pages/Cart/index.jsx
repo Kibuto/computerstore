@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
-import { useCart, useRouter } from "../../hooks";
+import { useAuth, useCart, useRouter } from "../../hooks";
 
 const Cart = () => {
-  const { cart, countIncrease, removeFromCart } = useCart();
   const router = useRouter();
+  const { token } = useAuth();
+  const { cart, countIncrease, removeFromCart } = useCart();
 
   return (
     <div className="cart-wrapper container mt-4">
@@ -48,7 +49,14 @@ const Cart = () => {
               <td>
                 <Button
                   variant="primary"
-                  onClick={() => router.push("/confirm")}
+                  onClick={() => {
+                    if (!token) {
+                      alert("You have to login to checkout!!!");
+                      router.push("/login");
+                    } else {
+                      router.push("/confirm");
+                    }
+                  }}
                 >
                   Check out
                 </Button>
