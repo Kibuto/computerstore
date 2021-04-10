@@ -1,15 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Container, Form } from "react-bootstrap";
+import { useRouter } from "../../hooks";
 
 const CreateProduct = () => {
+  const router = useRouter();
+  const { state } = router.location || {};
   const [categoryList, setCategoryList] = useState();
   const [showMessage, setShowMessage] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("1");
-  const [image, setImage] = useState("");
+  const [name, setName] = useState(state.name || "");
+  const [description, setDescription] = useState(state.description || "");
+  const [price, setPrice] = useState(state.price || "");
+  const [category, setCategory] = useState(state.category_id || "1");
+  const [image, setImage] = useState(state.image || "");
 
   useEffect(() => {
     axios
@@ -38,11 +41,29 @@ const CreateProduct = () => {
       });
   };
 
+  const editProduct = () => {
+    const formData = new FormData();
+    formData.append("id", state.id);
+    formData.append("image", image);
+    formData.append("name", name);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("price", price);
+
+    axios
+      .post(`${process.env.REACT_APP_API_URL_LARAVEL}/editProduct`, formData)
+      .then((res) => {
+        if (res.data.success) {
+          setShowMessage(true);
+        }
+      });
+  };
+
   return (
     <Container>
       {showMessage && (
         <Alert variant="success" onClose={() => setShowMessage(false)}>
-          Create product successfully
+          {state.id ? "Edit" : "Create"} product successfully
         </Alert>
       )}
       <Form>
@@ -96,8 +117,8 @@ const CreateProduct = () => {
             placeholder="Choose product Image here..."
           />
         </Form.Group>
-        <Button variant="primary" onClick={addProduct}>
-          Add
+        <Button variant="primary" onClick={state.id ? editProduct : addProduct}>
+          {state.id ? "Edit" : "Add"}
         </Button>
       </Form>
     </Container>

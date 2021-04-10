@@ -36,6 +36,15 @@ const ManagementProducts = () => {
       .catch((err) => console.error(err));
   };
 
+  const redirectToEditPage = (computer) => {
+    router.push({
+      pathname: "/create-product",
+      state: {
+        ...computer,
+      },
+    });
+  };
+
   return (
     <div className="order-history-wrapper container mt-4">
       {showMessage && (
@@ -79,6 +88,7 @@ const ManagementProducts = () => {
                 <td>{categoryMapping[item.category_id]}</td>
                 <td>
                   <Button onClick={() => deleteProduct(item.id)}>Remove</Button>
+                  <Button onClick={() => redirectToEditPage(item)}>Edit</Button>
                 </td>
               </tr>
             ))}

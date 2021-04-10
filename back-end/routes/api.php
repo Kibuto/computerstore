@@ -34,6 +34,7 @@ Route::get("getUserList", [UserController::class, "getUserList"]);
 Route::delete("deleteUserById/{id}", [UserController::class, "deleteUserById"]);
 
 Route::post("addProduct", [ProductController::class, "addProduct"]);
+Route::post("editProduct", [ProductController::class, "editProduct"]);
 Route::get("productList", [ProductController::class, "productList"]);
 Route::delete("deleteProduct/{id}", [ProductController::class, "deleteProduct"]);
 Route::get("getProductById/{id}", [ProductController::class, "getProductById"]);

@@ -20,6 +20,18 @@ class ProductController extends Controller
         return ["success" => true, "message" => "Create product successfully"];
     }
 
+    function editProduct(Request $req)
+    {
+        $product = Product::where("id", $req->input("id"))->first();
+        $product->name = $req->input("name");
+        $product->description = $req->input("description");
+        $product->price = $req->input("price");
+        $product->image = $req->file("image")->store("products");
+        $product->category_id = $req->input("category");
+        $product->update();
+        return response()->json(['success' => true, 'message' => "Update successfully"], 200);
+    }
+
     function productList()
     {
         return ["products" => Product::all()];
