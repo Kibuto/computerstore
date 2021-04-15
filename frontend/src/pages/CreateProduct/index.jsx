@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Container, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import { useRouter } from "../../hooks";
+import "./style.css";
 
 const CreateProduct = () => {
   const router = useRouter();
@@ -37,6 +38,7 @@ const CreateProduct = () => {
       .then((res) => {
         if (res.data.success) {
           setShowMessage(true);
+          router.push("/management-products");
         }
       });
   };
@@ -55,12 +57,13 @@ const CreateProduct = () => {
       .then((res) => {
         if (res.data.success) {
           setShowMessage(true);
+          router.push("/management-products");
         }
       });
   };
 
   return (
-    <Container>
+    <div className="container create-product-wrapper">
       {showMessage && (
         <Alert variant="success" onClose={() => setShowMessage(false)}>
           {state.id ? "Edit" : "Create"} product successfully
@@ -121,7 +124,7 @@ const CreateProduct = () => {
           {state.id ? "Edit" : "Add"}
         </Button>
       </Form>
-    </Container>
+    </div>
   );
 };
 

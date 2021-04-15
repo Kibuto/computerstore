@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter, useCart } from "../../hooks";
+import { FacebookProvider, Comments } from "react-facebook";
+import "./style.css";
 
 const Product = () => {
   const [product, setProduct] = useState({});
@@ -15,14 +17,15 @@ const Product = () => {
   }, [id]);
 
   return (
-    <div className="container mt-3">
+    <div className="container product-wrapper mt-3">
       <div className="card mb-3">
         <div className="row g-0">
           <div className="col-md-4">
             <img
-              // src={`http://localhost:8000/${product.image}`}
+              src={`${process.env.REACT_APP_URL_IMAGE}${product.image}`}
               alt="images"
-              style={{ width: "100%", height: "100%" }}
+              width={300}
+              height={250}
             />
           </div>
           <div className="col-md-8">
@@ -38,6 +41,12 @@ const Product = () => {
               >
                 Add to cart
               </button>
+              <div>
+                <div>Bình luận</div>
+                <FacebookProvider appId="156941489649716">
+                  <Comments href={`http://localhost:3000/product/${id}`} />
+                </FacebookProvider>
+              </div>
             </div>
           </div>
         </div>

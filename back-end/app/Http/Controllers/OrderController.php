@@ -69,6 +69,16 @@ class OrderController extends Controller
         }
     }
 
+    function editOrder(Request $req)
+    {
+        $order = Order::where("id", $req->input("id"))->first();
+        $order->shipAddress = $req->input("address");
+        $order->total = $req->input("total");
+        $order->status = $req->input("status");
+        $order->update();
+        return response()->json(['success' => true, 'message' => "Update successfully"], 200);
+    }
+
     function getDashboard()
     {
         $result = Order::query()->with('products')->whereYear('created_at', '=', 2021)->latest()->get();

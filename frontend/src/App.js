@@ -5,10 +5,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ProvideAuth } from "./hooks/useAuth";
 import { ProvideCart } from "./hooks/useCart";
 // components
-import Login from "./pages/Login";
-import Registration from "./pages/Registration";
 import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 // routers
 import { mainRoutes, adminRoutes, userRoutes } from "./routers";
 // others
@@ -57,10 +56,9 @@ const App = () => {
               roles={["admin"]}
               component={() => <Switch>{adminRouteComponents}</Switch>}
             />
+            <Footer />
           </Suspense>
         </ProvideCart>
-        <Route path="/login" component={Login} />
-        <Route path="/registration" component={Registration} />
       </Router>
     </ProvideAuth>
   );

@@ -32,6 +32,7 @@ Route::post("login", [UserController::class, "login"]);
 Route::get("getUserById/{id}", [UserController::class, "getUserById"]);
 Route::get("getUserList", [UserController::class, "getUserList"]);
 Route::delete("deleteUserById/{id}", [UserController::class, "deleteUserById"]);
+Route::post("updateUser", [UserController::class, "updateUser"]);
 
 Route::post("addProduct", [ProductController::class, "addProduct"]);
 Route::post("editProduct", [ProductController::class, "editProduct"]);
@@ -41,9 +42,13 @@ Route::get("getProductById/{id}", [ProductController::class, "getProductById"]);
 Route::get("getProductByCategoryId/{id}", [ProductController::class, "getProductByCategoryId"]);
 
 Route::get("categoryList", [CategoryController::class, "categoryList"]);
+Route::post("addCategory", [CategoryController::class, "addCategory"]);
+Route::post("editCategory", [CategoryController::class, "editCategory"]);
+Route::delete("deleteCategory/{id}", [CategoryController::class, "deleteCategory"]);
 
 Route::post("checkout", [OrderController::class, "checkout"]);
 Route::get("getOrder/{id}", [OrderController::class, "getOrder"]);
 Route::get("getOrderList", [OrderController::class, "getOrderList"]);
 Route::delete("deleteOrderById/{id}", [OrderController::class, "deleteOrderById"]);
 Route::get("getDashboard", [OrderController::class, "getDashboard"]);
+Route::post("editOrder", [OrderController::class, "editOrder"]);

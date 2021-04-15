@@ -1,8 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Spinner, Table, Button, Alert } from "react-bootstrap";
+import { useRouter } from "../../hooks";
+import { formatNumber } from "../../utils";
+import "./style.css";
 
 const ManagementOrder = () => {
+  const router = useRouter();
   const [orderList, setOrderList] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [shouldRefreshOrderList, setShouldRefreshOrderList] = useState(0);
@@ -30,7 +34,7 @@ const ManagementOrder = () => {
   };
 
   return (
-    <div className="order-history-wrapper container mt-4">
+    <div className="management-order-wrapper container mt-4">
       {showMessage && (
         <Alert
           variant="success"
@@ -52,27 +56,52 @@ const ManagementOrder = () => {
           </tr>
         </thead>
         <tbody>
-          {orderList &&
+          {orderList.length !== 0 ? (
             orderList.map((item, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
-                  {/* <img
+                  <img
                     src={`${process.env.REACT_APP_URL_IMAGE}${item.products[0].image}`}
-                    alt={item.products[0].image}
-                  /> */}
+                    alt={`${process.env.REACT_APP_URL_IMAGE}${item.products[0].image}`}
+                    width={100}
+                    height={100}
+                  />
                 </td>
                 <td>{item.shipAddress}</td>
-                <td>{item.total}</td>
+                <td>{formatNumber(item.total)}</td>
                 <td>
-                  <Spinner size="sm" animation="border" variant="warning" />
+                  {["PENDING", "DELIVERING"].includes(item.status) && (
+                    <Spinner size="sm" animation="border" variant="warning" />
+                  )}
                   {item.status}
                 </td>
                 <td>
-                  <Button onClick={() => deleteOrder(item.id)}>Remove</Button>
+                  <Button
+                    onClick={() =>
+                      router.push({
+                        pathname: "/edit-order",
+                        state: {
+                          ...item,
+                        },
+                      })
+                    }
+                  >
+                    Edit
+                  </Button>
+                  <Button variant="danger" onClick={() => deleteOrder(item.id)}>
+                    Remove
+                  </Button>
                 </td>
               </tr>
-            ))}
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6" className="text-center">
+                Empty Order
+              </td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </div>

@@ -12,4 +12,8 @@ function delayLazy(ms = 300) {
     );
 }
 
-export { delayLazy };
+const formatNumber = (number, formatterConfig = { minimumFractionDigits: 0 }) =>
+  ![undefined, null].includes(number) &&
+  new Intl.NumberFormat("en-US", formatterConfig).format(number);
+
+export { delayLazy, formatNumber };

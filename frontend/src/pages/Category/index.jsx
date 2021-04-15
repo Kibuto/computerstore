@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EllipsisContent from "../../components/EllipsisContent";
 import { useRouter } from "../../hooks";
+import "./style.css";
 
 const Category = () => {
   const [products, setProducts] = useState([]);
@@ -25,7 +26,7 @@ const Category = () => {
             <div className="col mb-4" key={index}>
               <div className="card h-100 computer-item">
                 <img
-                  src={`http://localhost:8000/${computer.image}`}
+                  src={`${process.env.REACT_APP_URL_IMAGE}${computer.image}`}
                   className="card-img-top"
                   alt={computer.image}
                 />

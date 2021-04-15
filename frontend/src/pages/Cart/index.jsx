@@ -1,6 +1,8 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
 import { useAuth, useCart, useRouter } from "../../hooks";
+import { formatNumber } from "../../utils";
+import "./style.css";
 
 const Cart = () => {
   const router = useRouter();
@@ -27,7 +29,12 @@ const Cart = () => {
                 <td>{index + 1}</td>
                 <td>{item.name}</td>
                 <td>
-                  <img src={item.image} alt={item.image} />
+                  <img
+                    src={`${process.env.REACT_APP_URL_IMAGE}${item.image}`}
+                    alt={item.image}
+                    width={100}
+                    height={100}
+                  />
                 </td>
                 <td>
                   <Button varian="primary" onClick={() => removeFromCart(item)}>
@@ -38,14 +45,12 @@ const Cart = () => {
                     +
                   </Button>
                 </td>
-                <td>{item.price * item.quantity}</td>
-                <td>
-                  <Button variant="danger">Remove</Button>
-                </td>
+                <td>{formatNumber(item.price * item.quantity)}</td>
+                <td></td>
               </tr>
             ))}
             <tr>
-              <td colSpan="5">Total: {cart.sum}</td>
+              <td colSpan="5">Total: {formatNumber(cart.sum)}</td>
               <td>
                 <Button
                   variant="primary"

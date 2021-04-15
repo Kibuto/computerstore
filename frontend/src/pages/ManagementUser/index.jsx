@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Table } from "react-bootstrap";
+import "./style.css";
 
 const ManagementUser = () => {
   const [shouldRefreshProductList, setShouldRefreshProductList] = useState(0);
@@ -29,7 +30,7 @@ const ManagementUser = () => {
   };
 
   return (
-    <div className="order-history-wrapper container mt-4">
+    <div className="management-user-wrapper container mt-4">
       {showMessage && (
         <Alert
           variant="success"

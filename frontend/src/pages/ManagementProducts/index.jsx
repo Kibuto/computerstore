@@ -2,18 +2,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Table } from "react-bootstrap";
 import { useRouter } from "../../hooks";
+import { formatNumber } from "../../utils";
+import "./style.css";
 
 const ManagementProducts = () => {
   const router = useRouter();
   const [shouldRefreshProductList, setShouldRefreshProductList] = useState(0);
+  const [categoryMapping, setCategoryMapping] = useState({});
   const [showMessage, setShowMessage] = useState(false);
   const [productList, setProductList] = useState([]);
-
-  const categoryMapping = {
-    1: "ASUS",
-    2: "ACER",
-    3: "MSI",
-  };
 
   useEffect(() => {
     axios
@@ -23,6 +20,21 @@ const ManagementProducts = () => {
       })
       .catch((err) => console.error(err));
   }, [shouldRefreshProductList]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL_LARAVEL}/categoryList`)
+      .then((res) => {
+        if (res.data.success) {
+          setCategoryMapping(
+            res.data.categories.reduce(
+              (pre, cur, index) => ({ ...pre, [index + 1]: cur.name }),
+              {}
+            )
+          );
+        }
+      });
+  }, []);
 
   const deleteProduct = (id) => {
     axios
@@ -84,7 +96,7 @@ const ManagementProducts = () => {
                     height="100"
                   />
                 </td>
-                <td>{item.price}</td>
+                <td>{formatNumber(item.price)}</td>
                 <td>{categoryMapping[item.category_id]}</td>
                 <td>
                   <Button onClick={() => deleteProduct(item.id)}>Remove</Button>

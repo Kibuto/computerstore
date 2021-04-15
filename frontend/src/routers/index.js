@@ -1,3 +1,5 @@
+import Login from "../pages/Login";
+import Registration from "../pages/Registration";
 import {
   Home,
   Products,
@@ -11,6 +13,10 @@ import {
   ManagementOrder,
   CreateProduct,
   Dashboard,
+  Profile,
+  CreateCategory,
+  ManagementCategory,
+  EditOrder,
 } from "./lazyRoutes";
 
 const mainRoutes = [
@@ -40,9 +46,24 @@ const mainRoutes = [
     pageName: "Category",
     component: Category,
   },
+  {
+    path: "/login",
+    pageName: "Login",
+    component: Login,
+  },
+  {
+    path: "/registration",
+    pageName: "Registration",
+    component: Registration,
+  },
 ];
 
 const userRoutes = [
+  {
+    path: "/profile",
+    pageName: "Profile",
+    component: Profile,
+  },
   {
     path: "/confirm",
     pageName: "Confirm",
@@ -62,6 +83,11 @@ const adminRoutes = [
     component: ManagementProducts,
   },
   {
+    path: "/management-category",
+    pageName: "ManagementCategory",
+    component: ManagementCategory,
+  },
+  {
     path: "/management-user",
     pageName: "ManagementUser",
     component: ManagementUser,
@@ -75,6 +101,16 @@ const adminRoutes = [
     path: "/create-product",
     pageName: "CreateProduct",
     component: CreateProduct,
+  },
+  {
+    path: "/create-category",
+    pageName: "CreateCategory",
+    component: CreateCategory,
+  },
+  {
+    path: "/edit-order",
+    pageName: "EditOrder",
+    component: EditOrder,
   },
   {
     path: "/dash-board",

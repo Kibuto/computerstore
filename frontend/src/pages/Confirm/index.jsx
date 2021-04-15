@@ -1,17 +1,29 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Button, Form } from "react-bootstrap";
 import { useAuth, useCart, useRouter } from "../../hooks";
+import "./style.css";
 
 const Confirm = () => {
-  const { cart } = useCart();
-  const { user, token } = useAuth();
-  const [name, setName] = useState(user.name || "");
-  const [address, setAddress] = useState(user.address || "");
+  const { cart, setCartStorage, setCart } = useCart();
+  const { token } = useAuth();
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
   const [shipDate, setShipDate] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("0");
   const router = useRouter();
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL_LARAVEL}/getUserById/${token.id}`)
+      .then((res) => {
+        const { name, address } = res.data.user;
+        setName(name);
+        setAddress(address);
+      })
+      .catch((err) => console.error(err));
+  }, [token.id]);
 
   const checkOut = () => {
     axios
@@ -29,6 +41,8 @@ const Confirm = () => {
       })
       .then((res) => {
         if (res.data.success) {
+          setCart({ cartItems: [], sum: 0, count: 0 });
+          setCartStorage({ cartItems: [], sum: 0, count: 0 });
           router.push("/products");
         }
       });

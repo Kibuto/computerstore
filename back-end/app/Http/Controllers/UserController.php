@@ -12,27 +12,27 @@ class UserController extends Controller
     function register(Request $req)
     {
         $checkUser = User::where("username", $req->username)->first();
-        if ($checkUser) return ["error" => 1, "message" => "Username is exist."];
+        if ($checkUser) return ["success" => false, "message" => "Username is exist."];
         $user = new User;
         $user->username = $req->input("username");
         $user->email = $req->input("email");
         $user->password = Hash::make($req->input("password"));
         $user->save();
-        return $user;
+        return ["success" => true, "user" => $user];
     }
 
     function login(Request $req)
     {
         $user = User::where("username", $req->username)->first();
         if (!$user || !Hash::check($req->password, $user->password)) {
-            return ["error" => 1, "message" => "Username or password is not matched"];
+            return ["success" => false, "message" => "Username or password is not matched"];
         }
-        return $user;
+        return ["success" => true, "user" => $user];
     }
 
     function getUserById($id)
     {
-        return User::where("id", $id)->first();
+        return ["success" => true, "user" => User::where("id", $id)->first()];
     }
 
     function getUserList()
@@ -48,5 +48,16 @@ class UserController extends Controller
         } else {
             return ["success" => false, "message" => "Something went wrong when delete user"];
         }
+    }
+
+    function updateUser(Request $req)
+    {
+        $user = User::where("id", $req->input("id"))->first();
+        $user->name = $req->input("name");
+        $user->email = $req->input("email");
+        $user->address = $req->input("address");
+        $user->image = $req->file("image")->store("products");
+        $user->update();
+        return ["success" => true, "message" => "Update successfully", "user" => $user];
     }
 }

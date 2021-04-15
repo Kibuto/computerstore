@@ -9,7 +9,7 @@ export const useProvideCart = () => {
   useEffect(() => {
     _handleGetStorage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [cartStorage]);
 
   const countIncrease = (computer) => {
     const addItem = {
@@ -85,5 +85,12 @@ export const useProvideCart = () => {
     }
   };
 
-  return { addToCart, countIncrease, cart, removeFromCart };
+  return {
+    addToCart,
+    countIncrease,
+    cart,
+    removeFromCart,
+    setCartStorage,
+    setCart,
+  };
 };

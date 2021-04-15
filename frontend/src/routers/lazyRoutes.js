@@ -9,7 +9,7 @@ export const Product = lazy(() => delayLazy()(import("../pages/Product")));
 export const Cart = lazy(() => delayLazy()(import("../pages/Cart")));
 export const Confirm = lazy(() => delayLazy()(import("../pages/Confirm")));
 export const Category = lazy(() => delayLazy()(import("../pages/Category")));
-// export const Profile = lazy(() => delayLazy()(import("../pages/Profile")));
+export const Profile = lazy(() => delayLazy()(import("../pages/Profile")));
 export const CreateProduct = lazy(() =>
   delayLazy()(import("../pages/CreateProduct"))
 );
@@ -22,7 +22,14 @@ export const ManagementUser = lazy(() =>
 export const ManagementOrder = lazy(() =>
   delayLazy()(import("../pages/ManagementOrder"))
 );
+export const ManagementCategory = lazy(() =>
+  delayLazy()(import("../pages/ManagementCategory"))
+);
 export const OrderHistory = lazy(() =>
   delayLazy()(import("../pages/OrderHistory"))
 );
+export const CreateCategory = lazy(() =>
+  delayLazy()(import("../pages/CreateCategory"))
+);
 export const Dashboard = lazy(() => delayLazy()(import("../pages/Dashboard")));
+export const EditOrder = lazy(() => delayLazy()(import("../pages/EditOrder")));

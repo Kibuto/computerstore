@@ -28,12 +28,17 @@ const Header = () => {
         <Nav.Link>
           <Link to="/products">Products</Link>
         </Nav.Link>
-        {token.role === "admin" &&
-          adminRoutes.map((route, index) => (
-            <Nav.Link key={index}>
-              <Link to={route.path}>{route.pageName.replace("nt", "nt ")}</Link>
-            </Nav.Link>
-          ))}
+        {token && token.role === "admin" && (
+          <NavDropdown title="Management">
+            {adminRoutes.map((route, index) => (
+              <NavDropdown.Item key={index}>
+                <Link to={route.path}>
+                  {route.pageName.replaceAll("Management", "")}
+                </Link>
+              </NavDropdown.Item>
+            ))}
+          </NavDropdown>
+        )}
         {category && (
           <NavDropdown title="Category">
             {category.map((item, index) => (

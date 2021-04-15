@@ -1,8 +1,10 @@
 // libs
 import React, { useState } from "react";
+import { Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 // hooks
 import { useRouter, useAuth } from "../../hooks";
+import "./style.css";
 
 const Registration = () => {
   const router = useRouter();
@@ -10,27 +12,39 @@ const Registration = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRegisterUser = (e) => {
     e.preventDefault();
-    const handleRedirectRouter = () => router.push("/login");
-    signup({
-      email,
-      username,
-      password,
-      handleRedirectRouter,
-    });
+    if (password === confirmPassword) {
+      const handleRedirectRouter = () => router.push("/login");
+      signup({
+        email,
+        username,
+        password,
+        handleRedirectRouter,
+        setMessage,
+      });
+    } else {
+      alert("Password và confirm password bị sai");
+    }
   };
 
   return (
-    <div style={{ marginTop: 10 }}>
+    <div className="registration-wrapper container mt-4">
       <h3>Registration</h3>
+      {message && (
+        <Alert variant="danger" dismissible onClose={() => setMessage(false)}>
+          {message}
+        </Alert>
+      )}
       <form onSubmit={handleRegisterUser}>
         <div className="form-group">
           <label>Email: </label>
           <input
             type="text"
+            required
             className="form-control"
             placeholder="Email..."
             value={email}
@@ -41,6 +55,7 @@ const Registration = () => {
           <label>Username: </label>
           <input
             type="text"
+            required
             className="form-control"
             placeholder="Username..."
             value={username}
@@ -51,6 +66,7 @@ const Registration = () => {
           <label>Password: </label>
           <input
             type="password"
+            required
             className="form-control"
             placeholder="Password..."
             value={password}
@@ -61,6 +77,7 @@ const Registration = () => {
           <label>Confirm Password: </label>
           <input
             type="password"
+            required
             className="form-control"
             placeholder="Confirm Password..."
             value={confirmPassword}

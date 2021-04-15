@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import EllipsisContent from "../../components/EllipsisContent";
+import "./style.css";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
